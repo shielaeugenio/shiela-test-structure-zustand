@@ -33,6 +33,9 @@ export const setFiltersSelector = (state: FilterStore) => state.saveFilters;
 export const filterState = (set: FilterSetState, get: FilterGetState) => ({
     ...initialState,
     getFilters: async () => {
+        const { filterConditions: { applicationStatus, gender } } = get()
+        if (applicationStatus || gender) return
+
         set((state) => {
             return {
                 ...state,

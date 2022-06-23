@@ -3,12 +3,10 @@ import { useFilterStore } from "../store/filterStore";
 
 
 const FilterComponent = (props: {}) => {
-    const { filterConditions, getFilters, saveFilters } = useFilterStore();
+    const { getFilters, saveFilters } = useFilterStore();
 
     useEffect(() => {
-        if (!filterConditions.gender && !filterConditions.applicationStatus) {
-            getFilters();
-        }
+        getFilters();
     }, []);
 
     return (
