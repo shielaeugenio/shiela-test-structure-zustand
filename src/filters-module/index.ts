@@ -1,9 +1,9 @@
 import FilterComponent from "./components/FilterComponent";
-import { filterSlice, FilterSlice } from "./state/filterSlice";
+import { filterConditionsSelector, useFilterStore } from "./store/filterStore";
 
 export {
-    filterSlice,
-    FilterComponent
+    FilterComponent,
+    filterConditionsSelector,
+    useFilterStore
 };
-export type { FilterSlice };
 

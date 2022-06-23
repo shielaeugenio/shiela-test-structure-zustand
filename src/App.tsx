@@ -1,4 +1,5 @@
 import './App.css';
+import { ApplicationsListComponent } from './applications-module';
 import { FilterComponent } from './filters-module';
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div>
       Hello Zustand
       <FilterComponent />
+      <ApplicationsListComponent />
     </div>
   );
 }

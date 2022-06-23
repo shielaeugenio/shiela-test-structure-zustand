@@ -1,4 +1,4 @@
-import { FilterConditions } from "../state/filterSlice"
+import { FilterConditions } from "../store/filterStore"
 
 const filterConditions: FilterConditions = {
     color: 'red',
@@ -10,8 +10,14 @@ export const getFilters = async() => {
 }
 
 export const saveFilters = async(newFilterConditions: FilterConditions) => {
-    filterConditions.color = newFilterConditions.color;
-    filterConditions.size = newFilterConditions.size;
+
+    if (newFilterConditions.color) {
+        filterConditions.color = newFilterConditions.color;
+    }
+
+    if (newFilterConditions.size) {
+        filterConditions.size = newFilterConditions.size;
+    }
 
     return Promise.resolve();
 }
