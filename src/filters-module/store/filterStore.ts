@@ -1,11 +1,7 @@
 import create, { GetState, SetState } from 'zustand';
 import { devtools, persist } from "zustand/middleware";
+import { FilterConditions } from '../../shared-module';
 import * as filterService from '../services/filterService';
-
-export interface FilterConditions {
-    color?: string;
-    size?: string;
-}
 
 export interface FilterState {
     filterConditions: FilterConditions;
@@ -20,8 +16,8 @@ export interface FilterStore extends FilterState {
 
 const initialState: FilterState = {
     filterConditions: {
-        color: '',
-        size: ''
+        gender: '',
+        applicationStatus: ''
     },
     isLoading: false,
     isSaving: false
@@ -31,6 +27,8 @@ type FilterSetState = SetState<FilterStore>;
 type FilterGetState = GetState<FilterStore>;
 
 export const filterConditionsSelector = (state: FilterState) => state.filterConditions;
+export const getFiltersSelector = (state: FilterStore) => state.getFilters;
+export const setFiltersSelector = (state: FilterStore) => state.saveFilters;
 
 export const filterState = (set: FilterSetState, get: FilterGetState) => ({
     ...initialState,
