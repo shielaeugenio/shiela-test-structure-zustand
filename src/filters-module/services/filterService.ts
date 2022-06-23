@@ -1,8 +1,8 @@
-import { FilterConditions } from "../store/filterStore"
+import { FilterConditions } from "../../shared-module";
 
 const filterConditions: FilterConditions = {
-    color: 'red',
-    size: 'large'
+    gender: '',
+    applicationStatus: ''
 }
 
 export const getFilters = async() => {
@@ -11,12 +11,12 @@ export const getFilters = async() => {
 
 export const saveFilters = async(newFilterConditions: FilterConditions) => {
 
-    if (newFilterConditions.color) {
-        filterConditions.color = newFilterConditions.color;
+    if (newFilterConditions.gender) {
+        filterConditions.gender = newFilterConditions.gender;
     }
 
-    if (newFilterConditions.size) {
-        filterConditions.size = newFilterConditions.size;
+    if (newFilterConditions.applicationStatus) {
+        filterConditions.applicationStatus = newFilterConditions.applicationStatus;
     }
 
     return Promise.resolve();
