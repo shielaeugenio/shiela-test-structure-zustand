@@ -1,6 +1,11 @@
 import { FilterConditions } from "../../shared-module";
 import { Application } from "../models/application";
 
+export type GetApplicationsResponse = {
+    applications: Application[];
+    totalApplications: number;
+}
+
 const applications: Application[] = [{
     name: 'Pink Pig Ranger',
     gender: 'female',
@@ -37,7 +42,7 @@ const applications: Application[] = [{
     applicationStatus: 'screening'
 }];
 
-export const getApplications = async (filterConditions?: FilterConditions) => {
+export const getApplications = async (filterConditions?: FilterConditions, pageSize: number = 5, selectedPage: number = 1) => {
     let filterApplications = applications;
 
     if (filterConditions?.gender) {
@@ -47,5 +52,14 @@ export const getApplications = async (filterConditions?: FilterConditions) => {
     if (filterConditions?.applicationStatus) {
         filterApplications = filterApplications.filter(a => a.applicationStatus === filterConditions.applicationStatus);
     }
-    return Promise.resolve(filterApplications);
+
+    var startIndex = (selectedPage - 1) * pageSize // 5
+    console.log('start index', startIndex);
+
+    var endIndex = (startIndex + pageSize > filterApplications?.length) ?  filterApplications?.length: startIndex + pageSize;
+
+    return Promise.resolve({
+        applications: filterApplications.slice(startIndex, endIndex),
+        totalApplications: filterApplications?.length
+    });
 }

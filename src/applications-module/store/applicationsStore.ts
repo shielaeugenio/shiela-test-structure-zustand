@@ -5,18 +5,18 @@ import { Application } from '../models/application';
 import * as applicationsService from '../services/applicationsService';
 
 export interface ApplicationsState {
-    applications: Application[];
-    isLoading: boolean;
+    pageSize: number;
+    selectedPage: number;
 }
 
 
 const initialState: ApplicationsState = {
-    applications: [],
-    isLoading: false
+    pageSize: 5,
+    selectedPage: 1
 };
 
 interface ApplicationsStore extends ApplicationsState {
-    getApplications: (FilterConditions: FilterConditions) => Promise<void>;
+    onPageChanged: (newPage: number) => void
 }
 
 type ApplicationsSetState = SetState<ApplicationsState>;
@@ -25,23 +25,13 @@ type ApplicationsGetState = GetState<ApplicationsState>;
 
 export const applicationsState = (set: ApplicationsSetState, get: ApplicationsGetState) => ({
     ...initialState,
-    getApplications: async (filterConditions: FilterConditions) => {
+    onPageChanged: (newPage: number) => {
         set((state) => {
             return {
                 ...state,
-                isLoading: true
+                selectedPage: newPage
             }
-        });
-
-        const response = await applicationsService.getApplications(filterConditions) as Application[];
-
-        set((state) => {
-            return {
-                ...state,
-                applications: response,
-                isLoading: false
-            }
-        });
+        })
     }
 });
 

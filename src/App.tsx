@@ -10,11 +10,6 @@ function App() {
         <FilterComponent />
         <ApplicationsListComponent />
       </div>
-      <div>
-        <h1>Hello SWR</h1>
-        <FilterComponentSwr />
-        <ApplicationsListComponentSwr />
-      </div>
     </div>
   );
 }

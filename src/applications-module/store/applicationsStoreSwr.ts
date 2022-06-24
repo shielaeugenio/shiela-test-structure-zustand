@@ -1,17 +1,25 @@
 import useSWR from "swr";
 import { FilterConditions } from "../../shared-module";
 import { Application } from "../models/application";
-import { getApplications } from "../services/applicationsService";
-import { ApplicationsState } from "./applicationsStore";
+import { getApplications, GetApplicationsResponse } from "../services/applicationsService";
 
-const _cacheKey = (condition: FilterConditions): string => `applications-${JSON.stringify(condition)}`
+// TODO: Clean cache
+const _cacheKey = (condition: FilterConditions, pageSize: number, selectedPage: number): string => `applications-${JSON.stringify({ ...condition, pageSize, selectedPage})}`
 
-export const useApplicationsStoreSwr = (condition: FilterConditions): ApplicationsState => {
+type DataState = {
+    applications: Application[];
+    totalApplications: number;
+    isLoading: boolean;
+    error?: any;
+}
+export const useGetApplicationsSwr = (condition: FilterConditions, pageSize: number, selectedPage: number): DataState => {
 
-    const { data, isValidating } = useSWR<Application[]>(_cacheKey(condition), () => getApplications(condition))
+    const { data, isValidating, error } = useSWR<GetApplicationsResponse>(_cacheKey(condition, pageSize, selectedPage), () => getApplications(condition, pageSize, selectedPage))
 
     return ({
-        applications: data || [],
-        isLoading: isValidating
-    })
+        applications: data?.applications || [],
+        totalApplications: data?.totalApplications!,
+        isLoading: isValidating,
+        error
+    }); 
 }
