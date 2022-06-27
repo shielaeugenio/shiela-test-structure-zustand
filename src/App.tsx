@@ -1,21 +1,24 @@
 import './App.css';
-import { ApplicationsListComponent, ApplicationsListComponentSwr } from './applications-module';
-import { FilterComponent, FilterComponentSwr } from './filters-module';
+import { ApplicationsListComponentRq } from './applications-module';
+import { FilterComponentReactQuery } from './filters-module';
+import { 
+  QueryClient as ReactQueryClient, 
+  QueryClientProvider as ReactQueryClientProvider 
+} from 'react-query'
+
+const reactQueryClient = new ReactQueryClient()
 
 function App() {
   return (
-    <div>
+    <ReactQueryClientProvider client={reactQueryClient}>
       <div>
-        <h1>Hello Zustand</h1>
-        <FilterComponent />
-        <ApplicationsListComponent />
+        <div>
+          <h1>Hello React-Query</h1>
+          <FilterComponentReactQuery />
+          <ApplicationsListComponentRq />
+        </div>
       </div>
-      <div>
-        <h1>Hello SWR</h1>
-        <FilterComponentSwr />
-        <ApplicationsListComponentSwr />
-      </div>
-    </div>
+    </ReactQueryClientProvider>
   );
 }
 
