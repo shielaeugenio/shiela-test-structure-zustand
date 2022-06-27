@@ -5,6 +5,7 @@ import {
   QueryClient as ReactQueryClient, 
   QueryClientProvider as ReactQueryClientProvider 
 } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 const reactQueryClient = new ReactQueryClient()
 
@@ -18,6 +19,7 @@ function App() {
           <ApplicationsListComponentRq />
         </div>
       </div>
+      <ReactQueryDevtools />
     </ReactQueryClientProvider>
   );
 }
