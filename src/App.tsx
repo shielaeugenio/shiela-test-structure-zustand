@@ -1,13 +1,20 @@
 import './App.css';
-import { ApplicationsListComponent } from './applications-module';
-import { FilterComponent } from './filters-module';
+import { ApplicationsListComponent, ApplicationsListComponentSwr } from './applications-module';
+import { FilterComponent, FilterComponentSwr } from './filters-module';
 
 function App() {
   return (
     <div>
-      Hello Zustand
-      <FilterComponent />
-      <ApplicationsListComponent />
+      <div>
+        <h1>Hello Zustand</h1>
+        <FilterComponent />
+        <ApplicationsListComponent />
+      </div>
+      <div>
+        <h1>Hello SWR</h1>
+        <FilterComponentSwr />
+        <ApplicationsListComponentSwr />
+      </div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import useSWR from 'swr';
 import create, { GetState, SetState } from 'zustand';
 import { devtools, persist } from "zustand/middleware";
 import { FilterConditions } from '../../shared-module';
