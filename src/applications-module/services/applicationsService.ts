@@ -37,6 +37,8 @@ const applications: Application[] = [{
     applicationStatus: 'screening'
 }];
 
+const delay = async (ms: number) => await new Promise(resolve => setTimeout(resolve, ms));
+
 export const getApplications = async (filterConditions?: FilterConditions) => {
     let filterApplications = applications;
 
@@ -47,5 +49,7 @@ export const getApplications = async (filterConditions?: FilterConditions) => {
     if (filterConditions?.applicationStatus) {
         filterApplications = filterApplications.filter(a => a.applicationStatus === filterConditions.applicationStatus);
     }
-    return Promise.resolve(filterApplications);
+    
+    await delay(3000);
+    return filterApplications;
 }
