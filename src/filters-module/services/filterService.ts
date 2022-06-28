@@ -11,11 +11,11 @@ export const getFilters = async() => {
 
 export const saveFilters = async(newFilterConditions: FilterConditions) => {
 
-    if (newFilterConditions.gender) {
+    if (newFilterConditions.gender !== undefined) {
         filterConditions.gender = newFilterConditions.gender;
     }
 
-    if (newFilterConditions.applicationStatus) {
+    if (newFilterConditions.applicationStatus !== undefined) {
         filterConditions.applicationStatus = newFilterConditions.applicationStatus;
     }
 
