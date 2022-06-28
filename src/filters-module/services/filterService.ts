@@ -1,4 +1,5 @@
 import { FilterConditions } from "../../shared-module";
+import { waitSec } from "../../shared-module/utils/wait";
 
 const filterConditions: FilterConditions = {
     gender: '',
@@ -19,5 +20,6 @@ export const saveFilters = async(newFilterConditions: FilterConditions) => {
         filterConditions.applicationStatus = newFilterConditions.applicationStatus;
     }
 
+    await waitSec(1);
     return Promise.resolve();
 }

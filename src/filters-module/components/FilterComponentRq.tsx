@@ -1,11 +1,12 @@
 import { useFilterStoreRq } from "../store/filterStoreRq";
 
 const FilterComponentRq = () => {
-    const { filterConditions, isLoading, saveFilters } = useFilterStoreRq()
+    const { filterConditions, isLoading, isSaving, saveFilters } = useFilterStoreRq()
 
     return (
         <div>
             {isLoading && <div>Loading...</div>}
+            {isSaving && <div>Saving...</div>}
             <h3>Filter by:</h3>
 
             <label>Gender&nbsp;</label>

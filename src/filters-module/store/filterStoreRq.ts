@@ -21,7 +21,7 @@ export const useFilterStoreRq = () => {
     return ({
         filterConditions: data || {},
         isLoading: isFetching,
-        isSaving: false,
+        isSaving: mutation.isLoading,
         saveFilters: async (newFilterConditions: FilterConditions) => mutation.mutate(newFilterConditions)
     });
 }
