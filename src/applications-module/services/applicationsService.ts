@@ -1,4 +1,5 @@
 import { FilterConditions } from "../../shared-module";
+import { waitSec } from "../../shared-module/utils/wait";
 import { Application } from "../models/application";
 
 const applications: Application[] = [{
@@ -37,6 +38,8 @@ const applications: Application[] = [{
     applicationStatus: 'screening'
 }];
 
+
+
 export const getApplications = async (filterConditions?: FilterConditions) => {
     let filterApplications = applications;
 
@@ -47,5 +50,7 @@ export const getApplications = async (filterConditions?: FilterConditions) => {
     if (filterConditions?.applicationStatus) {
         filterApplications = filterApplications.filter(a => a.applicationStatus === filterConditions.applicationStatus);
     }
-    return Promise.resolve(filterApplications);
+    
+    await waitSec(3);
+    return filterApplications;
 }
