@@ -7,6 +7,8 @@ type FiltersServerStore = {
     isLoading?: boolean;
     loadingError?: any;
     saveFilterConditions: UseMutateFunction<void, unknown, FilterConditions, unknown>;
+    isSaving?: boolean;
+    saveError: any;
 }
 
 const cacheKey = 'filters';
@@ -46,7 +48,7 @@ export const useSaveFilterConditions = (): Partial<FiltersServerStore> => {
 
     return ({
         saveFilterConditions: mutate,
-        isLoading: isLoading,
-        loadingError: error
+        isSaving: isLoading,
+        saveError: error
     });
 }
