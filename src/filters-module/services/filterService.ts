@@ -6,6 +6,7 @@ const filterConditions: FilterConditions = {
 }
 
 export const getFilters = async() => {
+    console.log('>>> Call Get Filters');
     return Promise.resolve(filterConditions);
 }
 

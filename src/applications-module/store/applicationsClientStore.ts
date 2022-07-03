@@ -1,8 +1,5 @@
 import create, { GetState, SetState } from 'zustand';
 import { devtools, persist } from "zustand/middleware";
-import { FilterConditions } from '../../shared-module';
-import { Application } from '../models/application';
-import * as applicationsService from '../services/applicationsService';
 
 export interface ApplicationsState {
     pageSize: number;
@@ -20,10 +17,10 @@ interface ApplicationsStore extends ApplicationsState {
 }
 
 type ApplicationsSetState = SetState<ApplicationsState>;
-type ApplicationsGetState = GetState<ApplicationsState>;
+type ApplicationsGetState = GetState<ApplicationsStore>;
 
 
-export const applicationsState = (set: ApplicationsSetState, get: ApplicationsGetState) => ({
+export const applicationsClientState = (set: ApplicationsSetState, get: ApplicationsGetState) => ({
     ...initialState,
     onPageChanged: (newPage: number) => {
         set((state) => {
@@ -36,4 +33,4 @@ export const applicationsState = (set: ApplicationsSetState, get: ApplicationsGe
 });
 
 
-export const useApplicationsStore = create(devtools(persist(applicationsState, { name: "applications" })));
+export const useApplicationsClientStore = create(devtools(persist(applicationsClientState, { name: "applications" })));

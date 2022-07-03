@@ -1,20 +1,18 @@
-import { useEffect } from "react";
-import { filterConditionsSelector, useFilterStore } from "../../filters-module";
-import { useApplicationsStore } from "../store/applicationsStore";
-import { useGetApplicationsSwr } from "../store/applicationsStoreSwr";
+import { useGetFilterConditions } from "../../filters-module";
+import { useApplicationsClientStore } from "../store/applicationsClientStore";
+import { useGetApplications } from "../store/applicationsServerStore";
 
 const ApplicationsListComponent = (props: {}) => {
-    const filterConditions = useFilterStore(filterConditionsSelector);
-    const { pageSize, selectedPage, onPageChanged } = useApplicationsStore();
-    const { applications, totalApplications } = useGetApplicationsSwr(filterConditions, pageSize, selectedPage);
+    const { filterConditions } = useGetFilterConditions();
+    const { pageSize, selectedPage, onPageChanged } = useApplicationsClientStore();
+    const { applications, totalApplications } = useGetApplications(filterConditions, pageSize, selectedPage);
 
     const totalPages = Math.ceil(Number(totalApplications) / Number(pageSize));
 
-    // SORRY FOR THE ASP CLASSIC FEELS CODE XD
-    var loopedContent = [];
-    for (var index = 1; index <= totalPages; index++) {
-        loopedContent.push(<li key={index}><button aria-valuenow={index} onClick={(event: any) => { onPageChanged(event.target.ariaValueNow); }}>{index}</button></li>);
-    }
+    console.log('pages', totalPages);
+    const pages = Array(totalPages).fill(-1).map((value, index) => {
+        return (<li key={index}><button aria-valuenow={index} onClick={(event: any) => { onPageChanged(event.target.ariaValueNow); }}>{index}</button></li>);
+    });
 
     return (
         <div>
@@ -45,7 +43,7 @@ const ApplicationsListComponent = (props: {}) => {
             <div>PageNumber: {selectedPage}</div>
 
             <ul>
-                {loopedContent}
+                {pages}
             </ul>
         </div>
     );
