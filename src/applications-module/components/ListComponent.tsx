@@ -11,7 +11,7 @@ const ApplicationsListComponent = (props: {}) => {
 
     console.log('pages', totalPages);
     const pages = Array(totalPages).fill(-1).map((value, index) => {
-        return (<li key={index}><button aria-valuenow={index} onClick={(event: any) => { onPageChanged(event.target.ariaValueNow); }}>{index}</button></li>);
+        return (<li key={index}><button aria-valuenow={index+1} onClick={(event: any) => { onPageChanged(event.target.ariaValueNow); }}>{index+1}</button></li>);
     });
 
     return (
