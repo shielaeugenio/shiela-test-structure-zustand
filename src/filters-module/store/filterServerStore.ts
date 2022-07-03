@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { UseMutateFunction, useMutation, useQuery, useQueryClient } from "react-query";
 import { FilterConditions } from "../../shared-module";
 import * as filterService from '../services/filterService';
 
@@ -6,11 +6,12 @@ type FiltersServerStore = {
     filterConditions: FilterConditions;
     isLoading?: boolean;
     loadingError?: any;
+    saveFilterConditions: UseMutateFunction<void, unknown, FilterConditions, unknown>;
 }
 
 const cacheKey = 'filters';
 
-export const useGetFilterConditions = (): FiltersServerStore => {
+export const useGetFilterConditions = (): Partial<FiltersServerStore> => {
 
     // key can be an array if the call has params e.g for GetApplications ['applications', {filterConditions: {}, pageNumber: {}}]
     const { data, isLoading, error } = useQuery(cacheKey, () => {
@@ -30,9 +31,9 @@ export const useGetFilterConditions = (): FiltersServerStore => {
     });
 }
 
-export const useSaveFilterConditions = () => {
+export const useSaveFilterConditions = (): Partial<FiltersServerStore> => {
     const queryClient = useQueryClient();
-    return useMutation((newFilterConditions: FilterConditions) => {
+    const {mutate, error, isLoading} = useMutation((newFilterConditions: FilterConditions) => {
         return filterService.saveFilters(newFilterConditions);
     }, {
         onSuccess: (data, variables, context) => {
@@ -40,9 +41,12 @@ export const useSaveFilterConditions = () => {
 
             queryClient.setQueryData(cacheKey, { ...currentFilterConditions, ...variables });
 
-        },
-        onError: (error) => {
-
         }
+    });
+
+    return ({
+        saveFilterConditions: mutate,
+        isLoading: isLoading,
+        loadingError: error
     });
 }

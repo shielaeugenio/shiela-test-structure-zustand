@@ -5,7 +5,7 @@ import { useGetApplications } from "../store/applicationsServerStore";
 const ApplicationsListComponent = (props: {}) => {
     const { filterConditions } = useGetFilterConditions();
     const { pageSize, selectedPage, onPageChanged } = useApplicationsClientStore();
-    const { applications, totalApplications } = useGetApplications(filterConditions, pageSize, selectedPage);
+    const { applications, totalApplications } = useGetApplications(filterConditions!, pageSize, selectedPage);
 
     const totalPages = Math.ceil(Number(totalApplications) / Number(pageSize));
 
@@ -16,7 +16,7 @@ const ApplicationsListComponent = (props: {}) => {
 
     return (
         <div>
-            <div>Filters: {filterConditions.applicationStatus} - {filterConditions.gender}</div>
+            <div>Filters: {filterConditions?.applicationStatus} - {filterConditions?.gender}</div>
             Applications
             <table>
                 <thead>

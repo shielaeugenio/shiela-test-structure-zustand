@@ -3,7 +3,7 @@ import { useGetFilterConditions, useSaveFilterConditions } from "../store/filter
 
 const FilterComponent = (props: {}) => {
     const { filterConditions, isLoading } = useGetFilterConditions();
-    const {mutate} = useSaveFilterConditions();
+    const { saveFilterConditions } = useSaveFilterConditions();
 
     console.log('filters', filterConditions);
     return (
@@ -13,9 +13,9 @@ const FilterComponent = (props: {}) => {
             <h3>Filter by:</h3>
 
             <label>Gender&nbsp;</label>
-            <select name="gender" value={filterConditions.gender} onChange={async (e) => {
+            <select name="gender" value={filterConditions?.gender} onChange={async (e) => {
                 console.log('dispatch gender ', e.target.value);
-                mutate({ gender: e.target.value });
+                saveFilterConditions!({ gender: e.target.value });
             }}>
                 <option value="">Select One</option>
                 <option value="male">male</option>
@@ -24,9 +24,9 @@ const FilterComponent = (props: {}) => {
             </select>
 
             <label>Application Status&nbsp;</label>
-            <select name="applicationStatus" value={filterConditions.applicationStatus} onChange={async (e) => {
+            <select name="applicationStatus" value={filterConditions?.applicationStatus} onChange={async (e) => {
                 console.log('dispatch applicationStatus ', e.target.value);
-                mutate({ applicationStatus: e.target.value });
+                saveFilterConditions!({ applicationStatus: e.target.value });
 
             }}>
                 <option value="">Select One</option>
