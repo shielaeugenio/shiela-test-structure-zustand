@@ -15,7 +15,7 @@ const FilterComponent = (props: {}) => {
             <label>Gender&nbsp;</label>
             <select name="gender" value={filterConditions?.gender} onChange={async (e) => {
                 console.log('dispatch gender ', e.target.value);
-                saveFilterConditions!({ gender: e.target.value });
+                saveFilterConditions({ gender: e.target.value });
             }}>
                 <option value="">Select One</option>
                 <option value="male">male</option>
@@ -26,7 +26,7 @@ const FilterComponent = (props: {}) => {
             <label>Application Status&nbsp;</label>
             <select name="applicationStatus" value={filterConditions?.applicationStatus} onChange={async (e) => {
                 console.log('dispatch applicationStatus ', e.target.value);
-                saveFilterConditions!({ applicationStatus: e.target.value });
+                saveFilterConditions({ applicationStatus: e.target.value });
 
             }}>
                 <option value="">Select One</option>

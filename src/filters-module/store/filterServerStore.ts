@@ -4,16 +4,16 @@ import * as filterService from '../services/filterService';
 
 type FiltersServerStore = {
     filterConditions: FilterConditions;
-    isLoading?: boolean;
+    isLoading: boolean;
     loadingError?: any;
     saveFilterConditions: UseMutateFunction<void, unknown, FilterConditions, unknown>;
-    isSaving?: boolean;
+    isSaving: boolean;
     saveError: any;
 }
 
 const cacheKey = 'filters';
 
-export const useGetFilterConditions = (): Partial<FiltersServerStore> => {
+export const useGetFilterConditions = (): Pick<FiltersServerStore, 'filterConditions' | 'isLoading' | 'loadingError'> => {
 
     // key can be an array if the call has params e.g for GetApplications ['applications', {filterConditions: {}, pageNumber: {}}]
     const { data, isLoading, error } = useQuery(cacheKey, () => {
@@ -33,7 +33,7 @@ export const useGetFilterConditions = (): Partial<FiltersServerStore> => {
     });
 }
 
-export const useSaveFilterConditions = (): Partial<FiltersServerStore> => {
+export const useSaveFilterConditions = (): Pick<FiltersServerStore, 'saveFilterConditions' | 'isSaving' | 'saveError'>=> {
     const queryClient = useQueryClient();
     const {mutate, error, isLoading} = useMutation((newFilterConditions: FilterConditions) => {
         return filterService.saveFilters(newFilterConditions);
