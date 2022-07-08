@@ -1,9 +1,9 @@
-import { useGetFilterConditions } from "../../filters-module";
+import { FilterConditions } from "../../shared-module";
 import { useApplicationsClientStore } from "../store/applicationsClientStore";
 import { useGetApplications } from "../store/applicationsServerStore";
 
-const ApplicationsListComponent = (props: {}) => {
-    const { filterConditions } = useGetFilterConditions();
+const ApplicationsListComponent = (props: { filterConditions: FilterConditions}) => {
+    const { filterConditions } = props;
     const { pageSize, selectedPage, onPageChanged } = useApplicationsClientStore();
     const { applications, totalApplications } = useGetApplications(filterConditions, pageSize, selectedPage);
 
