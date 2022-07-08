@@ -1,10 +1,11 @@
-import useSWR from "swr";
+import { useQuery } from "react-query";
 import { FilterConditions } from "../../shared-module";
 import { Application } from "../models/application";
 import { getApplications, GetApplicationsResponse } from "../services/applicationsService";
 
 // TODO: Clean cache
-const cacheKey = (condition: FilterConditions, pageSize: number, selectedPage: number): string => `applications-${JSON.stringify({ ...condition, pageSize, selectedPage})}`
+const cacheKey = (filterConditions: FilterConditions, pageSize: number, selectedPage: number) => 
+    ['applications', {filterConditions, selectedPage, pageSize}]
 
 type ApplicationsServerState = {
     applications: Application[];
@@ -12,14 +13,15 @@ type ApplicationsServerState = {
     isLoading: boolean;
     error?: any;
 }
-export const useGetApplications = (condition: FilterConditions, pageSize: number, selectedPage: number): ApplicationsServerState => {
+export const useGetApplications = (filterConditions: FilterConditions, pageSize: number, selectedPage: number): ApplicationsServerState => {
 
-    const { data, isValidating, error } = useSWR<GetApplicationsResponse>(cacheKey(condition, pageSize, selectedPage), () => getApplications(condition, pageSize, selectedPage))
+    const { data, isLoading, error } = useQuery(cacheKey(filterConditions, selectedPage, pageSize), () =>
+        getApplications(filterConditions, pageSize, selectedPage))
 
     return ({
         applications: data?.applications || [],
         totalApplications: data?.totalApplications || 0,
-        isLoading: isValidating,
+        isLoading: isLoading,
         error
     }); 
 }
