@@ -1,5 +1,5 @@
 import { UseMutateFunction, useMutation, useQuery, useQueryClient } from "react-query";
-import { FilterConditions } from "../../shared-module";
+import { FilterConditions, queryDefaults } from "../../shared-module";
 import * as filterService from '../services/filterService';
 
 type FiltersServerStore = {
@@ -19,7 +19,7 @@ export const useGetFilterConditions = (): Pick<FiltersServerStore, 'filterCondit
     const { data, isLoading, error } = useQuery(cacheKey, () => {
         return filterService.getFilters()
     }, {
-        refetchOnWindowFocus: false,
+        ...queryDefaults,
         initialData: {
             applicationStatus: '',
             gender: ''

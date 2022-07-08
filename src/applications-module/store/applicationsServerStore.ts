@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { FilterConditions } from "../../shared-module";
+import { FilterConditions, queryDefaults } from "../../shared-module";
 import { Application } from "../models/application";
 import { getApplications, GetApplicationsResponse } from "../services/applicationsService";
 
@@ -16,7 +16,7 @@ type ApplicationsServerState = {
 export const useGetApplications = (filterConditions: FilterConditions, pageSize: number, selectedPage: number): ApplicationsServerState => {
 
     const { data, isLoading, error } = useQuery(cacheKey(filterConditions, selectedPage, pageSize), () =>
-        getApplications(filterConditions, pageSize, selectedPage))
+        getApplications(filterConditions, pageSize, selectedPage), queryDefaults)
 
     return ({
         applications: data?.applications || [],
