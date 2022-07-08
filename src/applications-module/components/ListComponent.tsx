@@ -16,7 +16,7 @@ const ApplicationsListComponent = (props: { filterConditions: FilterConditions})
 
     return (
         <div>
-            <div>Filters: {filterConditions?.applicationStatus} - {filterConditions?.gender}</div>
+            <div>Filters: {filterConditions?.gender} - {filterConditions?.applicationStatus}</div>
             Applications
             <table>
                 <thead>
