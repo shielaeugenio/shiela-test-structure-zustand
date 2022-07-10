@@ -1,4 +1,2 @@
-import ApplicationsListComponent from "./components/ListComponent";
-export {
-    ApplicationsListComponent
-};
+import ApplicationsListComponent from "./components/ApplicationsListComponent";
+export { ApplicationsListComponent };

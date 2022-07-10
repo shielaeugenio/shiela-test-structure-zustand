@@ -1,8 +1,6 @@
 import { queryDefaults } from "./constants/reactQueryDefaults";
-import { FilterConditions } from "./models/filterConditions";
+import { IFilterConditions } from "./models/filterConditions";
 
-export type { FilterConditions };
+export type { IFilterConditions };
 
-export {
-    queryDefaults
-};
+export { queryDefaults };

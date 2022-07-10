@@ -1,0 +1,111 @@
+{
+  "filtersData": [
+    {
+      "id": 1,
+      "displayText": "Assessment Status",
+      "options": [
+        {
+          "id": 2,
+          "displayText": "Invited"
+        },
+        {
+          "id": 3,
+          "displayText": "Started"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "displayText": "Application Status",
+      "options": [
+        {
+          "id": 5,
+          "displayText": "New"
+        },
+        {
+          "id": 6,
+          "displayText": "Online testing"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "displayText": "Flags",
+      "options": [
+        {
+          "id": 8,
+          "displayText": "Unsure on hold"
+        },
+        {
+          "id": 9,
+          "displayText": "Has License"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "displayText": "Screening Activity Status",
+      "options": [
+        {
+          "id": 11,
+          "displayText": "Requested"
+        },
+        {
+          "id": 12,
+          "displayText": "Awaiting vendor result"
+        }
+      ]
+    }
+  ],
+
+  "applicationsData": [
+    {
+      "id": 1,
+      "applicant": {
+        "id": 1,
+        "firstName": "Sheila",
+        "lastName": "Eugenio"
+      },
+      "flags": [
+        {
+          "id": 8,
+          "description": "Unsure on hold"
+        }
+      ],
+      "status": {
+        "id": 5,
+        "description": "New"
+      },
+      "screeningActivities": {
+        "id": 11,
+        "description": "Requested"
+      },
+      "applicationScore": 100,
+      "documents": ["Form"]
+    },
+    {
+      "id": 2,
+      "applicant": {
+        "id": 1,
+        "firstName": "Jacky",
+        "lastName": "Chan"
+      },
+      "flags": [
+        {
+          "id": 9,
+          "description": "Has license"
+        }
+      ],
+      "status": {
+        "id": 6,
+        "description": "Online testing"
+      },
+      "screeningActivities": {
+        "id": 12,
+        "description": "Awaiting vendor result"
+      },
+      "applicationScore": 100,
+      "documents": ["Form", "Resume"]
+    }
+  ]
+}

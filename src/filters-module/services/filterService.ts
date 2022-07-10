@@ -1,24 +1,6 @@
-import { FilterConditions } from "../../shared-module";
+import { apiURL } from "../../shared-module/constants/reactQueryDefaults";
 
-const filterConditions: FilterConditions = {
-    gender: '',
-    applicationStatus: ''
-}
-
-export const getFilters = async() => {
-    console.log('>>> Call Get Filters');
-    return Promise.resolve(filterConditions);
-}
-
-export const saveFilters = async(newFilterConditions: FilterConditions) => {
-
-    if (newFilterConditions.gender) {
-        filterConditions.gender = newFilterConditions.gender;
-    }
-
-    if (newFilterConditions.applicationStatus) {
-        filterConditions.applicationStatus = newFilterConditions.applicationStatus;
-    }
-
-    return Promise.resolve();
-}
+export const getFilters = async () => {
+  const response = await fetch(apiURL + "filtersData");
+  return response.json();
+};

@@ -1,8 +1,5 @@
-import FilterComponent from "./components/FilterComponent";
-import { useGetFilterConditions } from "./store/filterServerStore";
+import FiltersCardComponent from "./components/FiltersCardComponent";
+import { useGetFiltersData } from "./store/filterServerStore";
+import { useFiltersClientStore } from "./store/filterClientStore";
 
-export {
-    FilterComponent,
-    useGetFilterConditions
-};
-
+export { FiltersCardComponent, useGetFiltersData, useFiltersClientStore };

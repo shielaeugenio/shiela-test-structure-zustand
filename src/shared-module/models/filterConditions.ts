@@ -1,4 +1,5 @@
-export interface FilterConditions {
-    gender?: string;
-    applicationStatus?: string;
+export interface IFilterConditions {
+  id?: number;
+  displayText?: string;
+  options?: [];
 }

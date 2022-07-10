@@ -1,27 +1,33 @@
 import { useQuery } from "react-query";
-import { FilterConditions, queryDefaults } from "../../shared-module";
-import { Application } from "../models/application";
-import { getApplications, GetApplicationsResponse } from "../services/applicationsService";
 
-// TODO: Clean cache
-const cacheKey = (filterConditions: FilterConditions, pageSize: number, selectedPage: number) => 
-    ['applications', {filterConditions, selectedPage, pageSize}]
+import { queryDefaults } from "../../shared-module";
 
-type ApplicationsServerState = {
-    applications: Application[];
-    totalApplications: number;
-    isLoading: boolean;
-    error?: any;
-}
-export const useGetApplications = (filterConditions: FilterConditions, pageSize: number, selectedPage: number): ApplicationsServerState => {
+import * as applicationService from "../services/applicationsService";
 
-    const { data, isLoading, error } = useQuery(cacheKey(filterConditions, selectedPage, pageSize), () =>
-        getApplications(filterConditions, pageSize, selectedPage), queryDefaults)
+const cacheKey = "applications";
 
-    return ({
-        applications: data?.applications || [],
-        totalApplications: data?.totalApplications || 0,
-        isLoading: isLoading,
-        error
-    }); 
-}
+type ApplicationsServerStore = {
+  applications: any;
+  isGetApplicationsDataLoading: boolean;
+  isGetApplicationsDataError: boolean;
+  isGetApplicationsDataSuccess: boolean;
+};
+
+export const useGetApplicationsData = (): ApplicationsServerStore => {
+  const { data, isLoading, isError, isSuccess } = useQuery(
+    cacheKey,
+    () => {
+      return applicationService.getApplications();
+    },
+    {
+      ...queryDefaults,
+    }
+  );
+
+  return {
+    applications: data!,
+    isGetApplicationsDataLoading: isLoading,
+    isGetApplicationsDataError: isError,
+    isGetApplicationsDataSuccess: isSuccess,
+  };
+};
