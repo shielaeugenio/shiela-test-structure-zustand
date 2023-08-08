@@ -19,7 +19,6 @@ interface ApplicationsStore extends ApplicationsState {
 type ApplicationsSetState = SetState<ApplicationsState>;
 type ApplicationsGetState = GetState<ApplicationsStore>;
 
-
 export const applicationsClientState = (set: ApplicationsSetState, get: ApplicationsGetState) => ({
     ...initialState,
     onPageChanged: (newPage: number) => {

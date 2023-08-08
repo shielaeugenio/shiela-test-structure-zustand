@@ -35,6 +35,7 @@ export const useGetFilterConditions = (): Pick<FiltersServerStore, 'filterCondit
 
 export const useSaveFilterConditions = (): Pick<FiltersServerStore, 'saveFilterConditions' | 'isSaving' | 'saveError'>=> {
     const queryClient = useQueryClient();
+    
     const {mutate, error, isLoading} = useMutation((newFilterConditions: FilterConditions) => {
         return filterService.saveFilters(newFilterConditions);
     }, {
