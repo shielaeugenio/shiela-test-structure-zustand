@@ -1,6 +1,7 @@
 import './App.css';
 import { ApplicationsListComponent } from './applications-module';
-import BeautifulDndComponent from './applications-module/components/BeautifulDndComponent';
+import BeautifulDndComponent from './applications-module/components/beatiful-dnd/BeautifulDndComponent';
+import DndKitComponent from './applications-module/components/dnd-kit/DndKitComponent';
 import { FilterComponent, useGetFilterConditions } from './filters-module';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       </div> */}
 
       <BeautifulDndComponent filterConditions={filterConditions} />
+      <DndKitComponent />
     </div>
   );
 }

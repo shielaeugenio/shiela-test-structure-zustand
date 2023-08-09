@@ -4,7 +4,7 @@ import { Application } from "../models/application";
 import { getApplications, GetApplicationsResponse } from "../services/applicationsService";
 
 // TODO: Clean cache
-const cacheKey = (filterConditions: FilterConditions, pageSize: number, selectedPage: number) => 
+const cacheKey = (filterConditions?: FilterConditions, pageSize?: number, selectedPage?: number) => 
     ['applications', {filterConditions, selectedPage, pageSize}]
 
 type ApplicationsServerState = {
@@ -13,7 +13,7 @@ type ApplicationsServerState = {
     isLoading: boolean;
     error?: any;
 }
-export const useGetApplications = (filterConditions: FilterConditions, pageSize: number, selectedPage: number): ApplicationsServerState => {
+export const useGetApplications = (filterConditions?: FilterConditions, pageSize?: number, selectedPage?: number): ApplicationsServerState => {
 
     const { data, isLoading, error } = useQuery(cacheKey(filterConditions, selectedPage, pageSize), () =>
         getApplications(filterConditions, pageSize, selectedPage), queryDefaults)

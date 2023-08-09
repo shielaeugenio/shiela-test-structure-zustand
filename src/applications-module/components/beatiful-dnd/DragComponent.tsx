@@ -1,5 +1,5 @@
 import { Draggable } from 'react-beautiful-dnd';
-import { Application } from '../models/application';
+import { Application } from '../../models/application';
 
 const DragComponent = (props: { application: Application, id: number}) => {
     const { application, id} = props;

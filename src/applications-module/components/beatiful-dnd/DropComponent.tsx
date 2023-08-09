@@ -1,5 +1,5 @@
 import { Droppable } from 'react-beautiful-dnd';
-import { Application } from '../models/application';
+import { Application } from '../../models/application';
 import DragComponent from './DragComponent';
 
 const DropComponent = (props: { applications: Application[], dropId: string}) => {

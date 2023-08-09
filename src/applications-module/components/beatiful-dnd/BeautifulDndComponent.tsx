@@ -1,10 +1,10 @@
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { useApplicationsClientStore } from '../store/applicationsClientStore';
-import { useGetApplications } from '../store/applicationsServerStore';
-import { FilterConditions } from '../../shared-module';
+import { useApplicationsClientStore } from '../../store/applicationsClientStore';
+import { useGetApplications } from '../../store/applicationsServerStore';
+import { FilterConditions } from '../../../shared-module';
 import * as React from 'react';
-import { Application } from '../models/application';
 import DropComponent from './DropComponent';
+import { Application } from '../../models/application';
 
 type ApplicationsPerStatus = {
     status: string;
@@ -12,9 +12,7 @@ type ApplicationsPerStatus = {
 }
 
 const BeautifulDndComponent = (props: { filterConditions: FilterConditions }) => {
-    const { filterConditions } = props;
-    const { selectedPage } = useApplicationsClientStore();
-    const { applications } = useGetApplications(filterConditions, 10, selectedPage);
+    const { applications } = useGetApplications();
 
     const [applicationsPerStatus, setApplicationsPerStatus] = React.useState<ApplicationsPerStatus[]>([]);
 
@@ -32,6 +30,10 @@ const BeautifulDndComponent = (props: { filterConditions: FilterConditions }) =>
 
         console.log('drag', eventValue);
         if (!destination) {
+            return;
+        }
+
+        if (destination.droppableId === source.droppableId && destination.index === source.index) {
             return;
         }
 
