@@ -1,19 +1,16 @@
 import { Draggable } from 'react-beautiful-dnd';
-import { Application } from '../../models/application';
 
-const DragComponent = (props: { application: Application, id: number}) => {
-    const { application, id} = props;
+const DragComponent = (props: {children: any, index: number, draggableId: string}) => {
+    const { draggableId, index, children} = props;
     return (
-        <Draggable draggableId={application.id} index={id}>
+        <Draggable draggableId={draggableId} index={index}>
         {(provided) => (
             <div
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
             >
-                <div style={{ backgroundColor: "#3287a8", margin: '3px' }}>
-                    {application.id}: {application.name}    
-                </div>
+                {children}
             </div>
         )}
     </Draggable>

@@ -5,6 +5,7 @@ import { FilterConditions } from '../../../shared-module';
 import * as React from 'react';
 import DropComponent from './DropComponent';
 import { Application } from '../../models/application';
+import DragComponent from './DragComponent';
 
 type ApplicationsPerStatus = {
     status: string;
@@ -84,7 +85,15 @@ const BeautifulDndComponent = (props: { filterConditions: FilterConditions }) =>
             <div style={{ border: "1px solid black", padding: "5px" }}>
                 <DragDropContext onDragEnd={onDragEnd}>
                     {applicationsPerStatus?.map((applicationsPerStatus, statusIndex) => (
-                        <DropComponent applications={applicationsPerStatus.applications} dropId={applicationsPerStatus.status} key={statusIndex} />
+                        <DropComponent droppableId={applicationsPerStatus.status} droppableTitle={applicationsPerStatus.status} key={statusIndex}>
+                            {applicationsPerStatus.applications.map((application, applicationIndex) => (
+                                <DragComponent draggableId={application.id} index={applicationIndex} key={applicationIndex}>
+                                    <div style={{ backgroundColor: "#3287a8", margin: '3px' }}>
+                                        {application.id}: {application.name}
+                                    </div>
+                                </DragComponent>
+                            ))}
+                        </DropComponent>
                     ))}
                 </DragDropContext>
             </div>
