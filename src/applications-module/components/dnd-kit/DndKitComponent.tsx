@@ -9,6 +9,7 @@ import { Application } from '../../models/application';
 type ApplicationsPerStatus = {
     status: string;
     applications: Application[];
+    isDisabled: boolean;
 }
 
 const DndKitComponent = () => {
@@ -22,7 +23,8 @@ const DndKitComponent = () => {
             const newApplications = applications.filter(a => a.applicationStatus === 'new');
             const screeningApplications = applications.filter(a => a.applicationStatus === 'screening');
             console.log('persisting');
-            setApplicationsPerStatus([{ status: 'new', applications: newApplications }, { status: 'screening', applications: screeningApplications }]);
+            setApplicationsPerStatus([{ status: 'new', isDisabled: true, applications: newApplications },
+            { status: 'screening', isDisabled: false, applications: screeningApplications }]);
         }
     }, [applications]);
 
@@ -31,10 +33,10 @@ const DndKitComponent = () => {
             <h1>Hello DnD Kit</h1>
             <DndContext onDragEnd={handleDragEnd}>
                 {applicationsPerStatus?.map((aps, index) => (
-                    <DropComponent id={aps.status} key={index}>
+                    <DropComponent id={aps.status} key={index} isDisabled={aps.isDisabled}>
                         {
                             aps.applications?.map((application, key) => (
-                                <DragComponent id={application.id} currentLane={aps.status} key={key}>
+                                <DragComponent id={application.id} currentLane={aps.status} key={key} isDisabled={aps.isDisabled}>
                                    {application.id} : {application.name}
                                 </DragComponent>
                             ))

@@ -2,11 +2,11 @@ import { Droppable } from 'react-beautiful-dnd';
 import { Application } from '../../models/application';
 import DragComponent from './DragComponent';
 
-const DropComponent = (props: { children: any, droppableId: string, droppableTitle: string}) => {
+const DropComponent = (props: { children: any, droppableId: string, droppableTitle: string, isDisabled: boolean}) => {
 
-    const { droppableId, droppableTitle, children} = props;
+    const { droppableId, droppableTitle, children, isDisabled} = props;
     return (
-        <Droppable droppableId={droppableId}>
+        <Droppable droppableId={droppableId} isDropDisabled={isDisabled}>
         {(provided) => (
             <div
                 ref={provided.innerRef}

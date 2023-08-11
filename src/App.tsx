@@ -15,7 +15,7 @@ function App() {
         <ApplicationsListComponent filterConditions={filterConditions} />
       </div> */}
 
-      <BeautifulDndComponent filterConditions={filterConditions} />
+      <BeautifulDndComponent />
       <DndKitComponent />
     </div>
   );

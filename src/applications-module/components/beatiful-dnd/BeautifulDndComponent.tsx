@@ -9,10 +9,11 @@ import DragComponent from './DragComponent';
 
 type ApplicationsPerStatus = {
     status: string;
+    isDisabled: boolean;
     applications: Application[];
 }
 
-const BeautifulDndComponent = (props: { filterConditions: FilterConditions }) => {
+const BeautifulDndComponent = () => {
     const { applications } = useGetApplications();
 
     const [applicationsPerStatus, setApplicationsPerStatus] = React.useState<ApplicationsPerStatus[]>([]);
@@ -22,7 +23,8 @@ const BeautifulDndComponent = (props: { filterConditions: FilterConditions }) =>
             const newApplications = applications.filter(a => a.applicationStatus === 'new');
             const screeningApplications = applications.filter(a => a.applicationStatus === 'screening');
             console.log('persisting');
-            setApplicationsPerStatus([{ status: 'new', applications: newApplications }, { status: 'screening', applications: screeningApplications }]);
+            setApplicationsPerStatus([{ status: 'new', isDisabled: true, applications: newApplications },
+            { status: 'screening', isDisabled: false, applications: screeningApplications }]);
         }
     }, [applications]);
 
@@ -85,9 +87,13 @@ const BeautifulDndComponent = (props: { filterConditions: FilterConditions }) =>
             <div style={{ border: "1px solid black", padding: "5px" }}>
                 <DragDropContext onDragEnd={onDragEnd}>
                     {applicationsPerStatus?.map((applicationsPerStatus, statusIndex) => (
-                        <DropComponent droppableId={applicationsPerStatus.status} droppableTitle={applicationsPerStatus.status} key={statusIndex}>
+                        <DropComponent
+                            droppableId={applicationsPerStatus.status}
+                            droppableTitle={applicationsPerStatus.status}
+                            key={statusIndex}
+                            isDisabled={applicationsPerStatus.isDisabled}>
                             {applicationsPerStatus.applications.map((application, applicationIndex) => (
-                                <DragComponent draggableId={application.id} index={applicationIndex} key={applicationIndex}>
+                                <DragComponent draggableId={application.id} index={applicationIndex} key={applicationIndex} isDisabled={applicationsPerStatus.isDisabled}>
                                     <div style={{ backgroundColor: "#3287a8", margin: '3px' }}>
                                         {application.id}: {application.name}
                                     </div>
