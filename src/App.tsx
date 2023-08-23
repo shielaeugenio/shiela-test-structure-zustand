@@ -1,11 +1,9 @@
 import './App.css';
-import { ApplicationsListComponent } from './applications-module';
 import BeautifulDndComponent from './applications-module/components/beatiful-dnd/BeautifulDndComponent';
 import DndKitComponent from './applications-module/components/dnd-kit/DndKitComponent';
-import { FilterComponent, useGetFilterConditions } from './filters-module';
+import ReactAriaComponent from './applications-module/components/react-aria/ReactAriaComponent';
 
 function App() {
-  const { filterConditions } = useGetFilterConditions();
 
   return (
     <div>
@@ -16,7 +14,8 @@ function App() {
       </div> */}
 
       <BeautifulDndComponent />
-      <DndKitComponent />
+      {/* <DndKitComponent /> */}
+      <ReactAriaComponent />
     </div>
   );
 }
