@@ -40,26 +40,9 @@ const ReactAriaComponent = () => {
                         <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', border: '1px solid black' }} key={index}>
                             <h3>{aps.status}</h3>
                             <ListBoxComponent
-                                aria-label={aps.status}
-                                selectionMode="single"
-                                items={aps.applications}
-                                onInsert={onInsert}
-                            >
-                                {(application: Application) => (
-                                    <Item key={application.id} textValue={application.name}>
-                                        <div style={{ backgroundColor: '#a9c1e8', marginBottom: '10px' }}>
-                                            {application.name}<br />
-                                            <span>Status: {application.applicationStatus}</span><br />
-                                            <span>Gender: {application.gender}</span>
-                                        </div>
-
-                                    </Item>
-
-                                    // <Item key={application.name}>
-                                    //     {application.name}
-                                    // </Item>
-                                )}
-                            </ListBoxComponent>
+                                ariaLabel={aps.status}
+                                initialItems={aps.applications}
+                            />
                         </div>
                     ))
 
