@@ -10,7 +10,12 @@ const Option = (props: { item: any, state: any, dropState: any, dragState: any }
     // Setup listbox option as normal. See useListBox docs for details.
     let ref = React.useRef(null);
     let { gridCellProps } = useGridListItem({ node: item }, state, ref);
+
+    //let { optionProps } = useOption({ key: item.key }, state, ref)
+
     let { isFocusVisible, focusProps } = useFocusRing();
+
+    //console.log('>> optionProps', optionProps);
 
     // Register the item as a drag source.
     let { dragProps } = useDraggableItem({
@@ -26,6 +31,8 @@ const Option = (props: { item: any, state: any, dropState: any, dragState: any }
         ref
     );
 
+    console.log('>> dropProps', dropProps);
+
     // Merge option props and dnd props, and render the item.
     return (
         <>
@@ -36,12 +43,20 @@ const Option = (props: { item: any, state: any, dropState: any, dragState: any }
             <li
                 {...mergeProps(gridCellProps, dropProps, focusProps, dragProps)}
                 ref={ref}
-                // Apply a class when the item is the active drop target.
+
+                // To remove the errors
                 className={`option ${isFocusVisible ? 'focus-visible' : ''} ${isDropTarget ? 'drop-target' : ''
                     }`}
             >
                 {item.rendered}
             </li>
+            {state.collection.getKeyAfter(item.key) == null &&
+                (
+                    <DropIndicator
+                        target={{ type: 'item', key: item.key, dropPosition: 'after' }}
+                        dropState={dropState}
+                    />
+                )}
         </>
 
     );
@@ -72,16 +87,21 @@ const DropIndicator = (props: any) => {
 const ListBoxComponent = (props: any) => {
     // Setup listbox as normal. See the useListBox docs for more details.
     let state = useListState(props);
+    console.log('>> state', state.collection);
+    console.log('>> selectionManager', state.selectionManager);
+    console.log('>> disabled', state.disabledKeys);
+
     let ref = React.useRef(null);
     let { gridProps } = useGridList(props, state, ref);
 
+    // let { listBoxProps } = useListBox(props, state, ref);
     // Setup react-stately and react-aria hooks for drag and drop.
     let dropState = useDroppableCollectionState({
         ...props,
         // Collection and selection manager come from list state.
         collection: state.collection,
         selectionManager: state.selectionManager,
-        
+
     });
 
     let { collectionProps } = useDroppableCollection(
@@ -110,6 +130,8 @@ const ListBoxComponent = (props: any) => {
 
         // Provide data for each dragged item. This function could
         // also be provided by the user of the component.
+
+        // What is this for?
         getItems: props.getItems || ((keys) => {
 
             return [...keys].map((key) => {
@@ -127,7 +149,7 @@ const ListBoxComponent = (props: any) => {
 
     // Merge listbox props and dnd props, and render the items as normal.
     return (
-        <ul {...mergeProps(gridProps, collectionProps)} ref={ref} style={{listStyleType: 'none', paddingLeft: '0'}}>
+        <ul {...mergeProps(gridProps, collectionProps)} ref={ref} style={{ listStyleType: 'none', paddingLeft: '0' }}>
             {[...state.collection].map((item) => (
                 <Option
                     key={item.key}

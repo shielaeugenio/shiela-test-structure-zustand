@@ -14,7 +14,7 @@ function App() {
       </div> */}
 
       <BeautifulDndComponent />
-      {/* <DndKitComponent /> */}
+      <DndKitComponent />
       <ReactAriaComponent />
     </div>
   );

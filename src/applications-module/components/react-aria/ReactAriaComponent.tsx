@@ -2,9 +2,7 @@ import * as React from 'react';
 import { useGetApplications } from '../../store/applicationsServerStore';
 import { Application } from '../../models/application';
 import ListBoxComponent from './ListBoxComponent';
-import { Item, useListData } from 'react-stately';
-import { Button } from 'react-aria-components';
-
+import { Item } from 'react-stately';
 type ApplicationsPerStatus = {
     status: string;
     applications: Application[];
@@ -27,7 +25,7 @@ const ReactAriaComponent = () => {
         }
     }, [applications]);
 
-    
+
     let onInsert = async (e: any) => {
         let name = await e.items[0].getText('item');
         console.log('>> insert name', name);
@@ -39,25 +37,27 @@ const ReactAriaComponent = () => {
             {applicationsPerStatus?.length > 0 &&
                 <div style={{ display: 'flex', margin: '3px' }}>
                     {applicationsPerStatus.map((aps, index) => (
-                        <div style={{ display: 'flex', flexDirection:'column', padding: '10px', border: '1px solid black'}} key={index}>
+                        <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', border: '1px solid black' }} key={index}>
                             <h3>{aps.status}</h3>
                             <ListBoxComponent
                                 aria-label={aps.status}
-                                selectionMode="multiple"
-                                selectionBehavior="replace"
-                                acceptedDragTypes={'all'}
+                                selectionMode="single"
                                 items={aps.applications}
                                 onInsert={onInsert}
                             >
                                 {(application: Application) => (
                                     <Item key={application.id} textValue={application.name}>
                                         <div style={{ backgroundColor: '#a9c1e8', marginBottom: '10px' }}>
-                                            {application.name}<br/>
-                                            <span>Status: {application.applicationStatus}</span><br/>
+                                            {application.name}<br />
+                                            <span>Status: {application.applicationStatus}</span><br />
                                             <span>Gender: {application.gender}</span>
                                         </div>
 
                                     </Item>
+
+                                    // <Item key={application.name}>
+                                    //     {application.name}
+                                    // </Item>
                                 )}
                             </ListBoxComponent>
                         </div>

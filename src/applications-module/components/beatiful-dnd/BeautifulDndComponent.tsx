@@ -23,7 +23,7 @@ const BeautifulDndComponent = () => {
             const newApplications = applications.filter(a => a.applicationStatus === 'new');
             const screeningApplications = applications.filter(a => a.applicationStatus === 'screening');
             console.log('persisting');
-            setApplicationsPerStatus([{ status: 'new', isDisabled: true, applications: newApplications },
+            setApplicationsPerStatus([{ status: 'new', isDisabled: false, applications: newApplications },
             { status: 'screening', isDisabled: false, applications: screeningApplications }]);
         }
     }, [applications]);
