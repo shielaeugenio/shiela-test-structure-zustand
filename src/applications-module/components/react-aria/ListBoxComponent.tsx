@@ -20,6 +20,7 @@ const ListBoxComponent = (props: {
         // Provide drag data in a custom format as well as plain text.
         getItems(keys) {
             return [...keys].map((key) => {
+                console.log("key", key);
                 let item = list.getItem(key);
                 return {
                     'custom-app-type': JSON.stringify(item),
@@ -39,7 +40,11 @@ const ListBoxComponent = (props: {
             let processedItems = await Promise.all(
                 e.items
                     .filter(isTextDropItem)
-                    .map(async item => JSON.parse(await item.getText('custom-app-type')))
+                    .map(async item => {
+                        const result = await item.getText('custom-app-type');
+                        console.log(result);
+                        return JSON.parse(await item.getText('custom-app-type'))
+                    })
             );
             if (e.target.dropPosition === 'before') {
                 list.insertBefore(e.target.key, ...processedItems);

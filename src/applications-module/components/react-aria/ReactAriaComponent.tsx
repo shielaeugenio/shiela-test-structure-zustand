@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useGetApplications } from '../../store/applicationsServerStore';
 import { Application } from '../../models/application';
-import ListBoxComponent from './ListBoxComponent';
-import { Item } from 'react-stately';
+import GridListComponent from './GridListComponent';
 type ApplicationsPerStatus = {
     status: string;
     applications: Application[];
@@ -39,9 +38,8 @@ const ReactAriaComponent = () => {
                     {applicationsPerStatus.map((aps, index) => (
                         <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', border: '1px solid black' }} key={index}>
                             <h3>{aps.status}</h3>
-                            <ListBoxComponent
-                                ariaLabel={aps.status}
-                                initialItems={aps.applications}
+                            <GridListComponent
+                                items={aps.applications}
                             />
                         </div>
                     ))
