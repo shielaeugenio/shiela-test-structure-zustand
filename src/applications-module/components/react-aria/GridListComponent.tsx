@@ -1,13 +1,14 @@
+import { useObjectRef } from '@react-aria/utils';
 import { DraggableCollectionProps, DroppableCollectionReorderEvent, DroppableCollectionUtilityOptions } from '@react-types/shared';
 import { useEffect, useRef } from 'react';
-import {AriaGridListProps, DragItem, DraggableCollectionEndEvent, DraggableCollectionStartEvent, DropIndicatorProps, DropTarget, ListDropTargetDelegate, ListKeyboardDelegate, isTextDropItem, mergeProps, useDraggableItem, useDropIndicator, useDroppableCollection, useFocusRing, useGridList, useListBox, useOption} from 'react-aria';
-import {DroppableCollectionState, Item, ListProps, useCollection, useDraggableCollectionState, useDroppableCollectionState, useListData, useListState} from 'react-stately';
+import {AriaGridListProps, DragItem, DraggableCollectionEndEvent, DraggableCollectionStartEvent, DropIndicatorProps, DropTarget, ListDropTargetDelegate, ListKeyboardDelegate, isTextDropItem, mergeProps, useDraggableCollection, useDraggableItem, useDropIndicator, useDroppableCollection, useFocusRing, useGridList, useListBox, useOption} from 'react-aria';
+import {DraggableCollectionState, DroppableCollectionState, Item, ListProps, ListState, useCollection, useDraggableCollectionState, useDroppableCollectionState, useListData, useListState, Node} from 'react-stately';
 
 // interface GridListProps<T> extends Omit<AriaGridListProps<T>, 'children'>, CollectionProps<T> {
 //   onReorder?: (e: DroppableCollectionReorderEvent) => void,
 // }
 
-const ReorderableListBox = <T extends object>(props: ListProps<T>) => {
+const ReorderableListBox = <T extends object>(props: ListProps<T> | { id: string }) => {
     let state = useListState(props as ListProps<T>);
     let ref = useRef(null);
     let { listBoxProps } = useListBox(props, state, ref);
@@ -53,6 +54,7 @@ const ReorderableListBox = <T extends object>(props: ListProps<T>) => {
     //     });
     // }
   });
+  useDraggableCollection({}, dragState, ref);
 
   // Setup react-stately and react-aria hooks for dropping.
   let dropState = useDroppableCollectionState({
@@ -80,6 +82,7 @@ const ReorderableListBox = <T extends object>(props: ListProps<T>) => {
 
   return (
     <ul
+      id={(props as { id: string }).id}
       {...mergeProps(listBoxProps, collectionProps)}
       ref={ref}
     >
@@ -96,16 +99,16 @@ const ReorderableListBox = <T extends object>(props: ListProps<T>) => {
   );
 }
 
-const ReorderableOption = (props: { item: any, state: any, dragState: any, dropState: any }) => {
+function ReorderableOption<T>(props: { item: Node<T>, state: ListState<T>, dragState: DraggableCollectionState, dropState: DroppableCollectionState }) {
     const { item, state, dragState, dropState } = props;
 
-    let ref = useRef(null);
+    let ref = useObjectRef<any>(item.props.ref);
     let { optionProps } = useOption({ key: item.key }, state, ref);
     let { isFocusVisible, focusProps } = useFocusRing();
 
     // Register the item as a drag source.
   let { dragProps } = useDraggableItem({
-    key: item.key
+    key: item.key,
   }, dragState);
 
   return (
@@ -153,7 +156,7 @@ const DropIndicator = (props: { target: DropTarget, dropState: DroppableCollecti
   );
 }
 
-const GridListComponent = (props: { items: any[]}) => {
+const GridListComponent = (props: { items: any[]; id: string }) => {
     let list = useListData({
       initialItems: [...props.items]
     });
@@ -221,13 +224,13 @@ const GridListComponent = (props: { items: any[]}) => {
   
     return (
       <ReorderableListBox
-        aria-label="Favorite animals"
+        aria-label={props.id}
         selectionMode="multiple"
         selectionBehavior="replace"
         items={list.items}
         {...droppableCollectionOptions}
       >
-        {(item: any) => <Item>{item.name}<p>test</p></Item>}
+        {(item: any) => <Item>{item.name}<p>{item.id}</p></Item>}
       </ReorderableListBox>
     );
   }

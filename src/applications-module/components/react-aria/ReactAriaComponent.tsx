@@ -10,6 +10,8 @@ type ApplicationsPerStatus = {
 
 const ReactAriaComponent = () => {
 
+    // lane = draggable collection = cards
+    // board = droppable collection = lanes
     const { applications } = useGetApplications();
 
     const [applicationsPerStatus, setApplicationsPerStatus] = React.useState<ApplicationsPerStatus[]>([]);
@@ -38,7 +40,7 @@ const ReactAriaComponent = () => {
                     {applicationsPerStatus.map((aps, index) => (
                         <div style={{ display: 'flex', flexDirection: 'column', padding: '10px', border: '1px solid black' }} key={index}>
                             <h3>{aps.status}</h3>
-                            <GridListComponent
+                            <GridListComponent id={aps.status}
                                 items={aps.applications}
                             />
                         </div>
